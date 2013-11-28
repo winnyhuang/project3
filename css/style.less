@@ -1,46 +1,52 @@
-@height:400px;
-@blue:blue;
-@gray:gray;
-@border:1px solid gray;
-@space:40px;
+@import "variables.less";
+
+* {
+  box-sizing: border-box;
+}
+
+.flip-container {
+  position:relative;
+  height: @height;
+  perspective: 1000px;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border: 1px solid #808080;
+  z-index:1;
+
+  .flip-card {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s ease-in;
+
+    .front {
+    background-color: @blue;
+
+    }
+
+    .back {
+    background-color: black;
+    z-index:-10;
+    }
+ }
 
 
-.flip-container{
-	height:@height;
-	perspective:1000;
-	text-align:center;
-	margin-top:@space;
-	margin-bottom:@space;
-	border:@border;
+  &:hover {
+    .flip-card{
+       -webkit-transform: rotateY(180deg);
+    }
+  }
+}
 
-	h1{
-		opacity:0;
-		-webkit-transition: opacity 0.6s ease-in;
-	}
-
-	&:hover h1{
-		opacity:1;
-
-	}
-
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  &.back {
+  -webkit-transform: rotateY(180deg);
+  }
 }
 
 
-.front, .back{
-	-webkit-backface-visibility:hidden;
-	position:absolute;
-	top:0;
-	left:0;
-	height:100px;
-	width:100px
-}
-
-.front{
-	z-index:2;
-	background:white;
-}
-
-.back{
-	background:@blue;
-	display:block;
-}
